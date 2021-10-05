@@ -10,9 +10,11 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbars/">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-
-    <!-- Bootstrap core CSS -->
+    <!-- Bootstrap core CSS
+    background-image: url("https://cdn.hk01.com/di/media/images/dw/20210315/448185285977575424431758.jpeg/bfSxYzQYfKM1aPXs07GFa0FU14VPMCdwXl_sXV5f7F0?v=w1920");
+-->
 <link href="bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -31,7 +33,6 @@
       }
 
       .background {
-        background-image: url("https://cdn.hk01.com/di/media/images/dw/20210315/448185285977575424431758.jpeg/bfSxYzQYfKM1aPXs07GFa0FU14VPMCdwXl_sXV5f7F0?v=w1920");
         background-position: center;
         background-size: cover;
       }
@@ -45,6 +46,10 @@
 
       .footer {
         background-color: #283032
+      }
+
+      .center-cropped {
+  object-fit: cover
       }
     </style>
 
@@ -62,8 +67,9 @@
 
     <!--<header class="pb-3 mb-4 border-bottom"> -->
       <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" class="me-2" viewBox="0 0 118 94" role="img"><title>Bootstrap</title><path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z" fill="currentColor"></path></svg>
-        <span class="fs-4">Jumbotron example</span>
+        <!--<svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" class="me-2" viewBox="0 0 118 94" role="img"><title>Bootstrap</title><path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z" fill="currentColor"></path></svg>-->
+        <img width="40" height="40" id="logo" src=""  class="me-2"></img>
+        <span class="fs-4" id="page_title"></span>
       </a>
     <!--</header>主頁 | 委員名單 | 小組活動 | 活動花絮 | 昔日活動 | 聯絡資料-->
   </div>
@@ -79,7 +85,110 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarsExample07">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navbar">
+
+<script>
+var galleryData;
+var pos = 0;
+
+function test() {
+  //galleryData.forEach(element =>{
+  setTimeout(function (){
+    console.log(galleryData.length + " " + pos);
+
+    $('#background').css('background-image', 'url(' + galleryData[pos].url + ')');
+
+    pos = pos + 1;
+     if(galleryData.length <= pos) {
+      pos = 0;
+    }
+  // Something you want delayed.
+  test();
+
+}, 5000); // How long do you want the delay to be (in milliseconds)?
+
+  console.log('after 1 second');
+//    console.log("" + element.url);
+  //}
+}
+
+console.log('start timer');
+test();
+$(document).ready(function() {
+    $.ajax({
+        url: "http://104.168.122.239:1337/navigations?_locale=zh-Hant"
+    }).then(function(data) {
+
+      data.forEach(element =>{
+        console.log(element.title);
+        var html = "<li class='nav-item'><a class='nav-link active' href='" + element.url +"'>" + element.title + "</a></li>";
+
+        $( "#navbar" ).append( html );
+        }
+      );
+    });
+
+    $.ajax({
+        url: "http://104.168.122.239:1337/application-names?_locale=zh-Hant"
+    }).then(function(data) {
+          data.forEach(element =>{
+          console.log("" + element.logo);
+          $( "#page_title" ).append( element.name );
+          $( "#logo" ).attr('src',element.url);
+          $( "#footer" ).append( element.name );
+
+        }
+      );
+    });
+
+    $.ajax({
+      url: "http://104.168.122.239:1337/banners"
+    }).then(function(data) {
+      data.forEach(element =>{
+        console.log("" + element.url);
+        galleryData = data;
+        $('#background').css('background-image', 'url(' + element.url + ')');
+      }
+    );
+  });
+
+      $.ajax({
+        url: "http://104.168.122.239:1337/latests"
+      }).then(function(data) {
+
+        if(data.length == 0) {
+          $( "#post_1" ).remove();
+          $( "#post_2" ).remove();
+        }
+
+                if(data.length == 1) {
+                  $( "#post_2" ).remove();
+                }
+
+
+        for(var a = 0; a < data.length; a++) {
+          console.log('title' + data[a].title);
+          if(a < 2) {
+
+            if(a == 0) {
+              $( "#post_1_title" ).append( data[a].title );
+              $( "#post_1_date" ).append( data[a].published_at );
+              $( "#post_1_photo" ).attr('src', 'http://104.168.122.239:1337' + data[a].gallery[0].url);
+
+            }
+ //post_2_category post_2_title post_2_date post_2_description
+          }
+        }
+        //data.forEach(element =>{
+          //console.log("" + element.url);
+          //galleryData = data;
+          //$('#background').css('background-image', 'url(' + element.url + ')');
+        //}
+    });
+
+});
+</script>
+            <!--
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">主頁</a>
           </li>
@@ -98,23 +207,8 @@
           <li class="nav-item">
             <a class="nav-link ">聯絡資料</a>
           </li>
-          <!--
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-            <ul class="dropdown-menu" aria-labelledby="dropdown07">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-        -->
+   -->
         </ul>
-
-<!--
-        <form>
-          <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-        </form>
-      -->
       </div>
     </div>
   </nav>
@@ -134,13 +228,14 @@
       </div>
     </div>background
 -->
-  <div class="p-5 mb-4 background rounded-3">
+  <div class="p-5 mb-4 background rounded-3" id="background">
     <div class="container-fluid py-5 text-white gallery">
       <!--
       <h1 class="display-5 fw-bold">1</h1>
       <p class="col-md-8 fs-4">U.</p>-->
     </div>
   </div>
+
 
   <div class="album py-5 bg-white">
       <div class="container">
@@ -150,87 +245,157 @@
 
           <div class="col">
             <div class="card shadow-sm">
-              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
 
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+
+
+                <div id="myCarousel_1" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#myCarousel_1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#myCarousel_1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#myCarousel_1" data-bs-slide-to="2" aria-label="Slide 3"></button>
                   </div>
-                  <small class="text-muted">9 mins</small>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <svg class="bd-placeholder-img" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+                    </div>
+                    <div class="carousel-item">
+                      <svg class="bd-placeholder-img" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+                    </div>
+                    <div class="carousel-item">
+                      <svg class="bd-placeholder-img" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+                    </div>
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel_1" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel_1" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
                 </div>
-              </div>
+
             </div>
           </div>
-          <div class="col">
-            <div class="card shadow-sm">
-              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
 
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card shadow-sm">
-              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                    <div class="col">
+                      <div class="card shadow-sm">
 
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div>
+
+
+                          <div id="myCarousel_1" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                              <button type="button" data-bs-target="#myCarousel_1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                              <button type="button" data-bs-target="#myCarousel_1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                              <button type="button" data-bs-target="#myCarousel_1" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                <svg class="bd-placeholder-img" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+                              </div>
+                              <div class="carousel-item">
+                                <svg class="bd-placeholder-img" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+                              </div>
+                              <div class="carousel-item">
+                                <svg class="bd-placeholder-img" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+                              </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel_1" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel_1" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                            </button>
+                          </div>
+
+                      </div>
+                    </div>
+
+                              <div class="col">
+                                <div class="card shadow-sm">
+
+
+
+                                    <div id="myCarousel_1" class="carousel slide" data-bs-ride="carousel">
+                                      <div class="carousel-indicators">
+                                        <button type="button" data-bs-target="#myCarousel_1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                        <button type="button" data-bs-target="#myCarousel_1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                        <button type="button" data-bs-target="#myCarousel_1" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                      </div>
+                                      <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                          <svg class="bd-placeholder-img" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+                                        </div>
+                                        <div class="carousel-item">
+                                          <svg class="bd-placeholder-img" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+                                        </div>
+                                        <div class="carousel-item">
+                                          <svg class="bd-placeholder-img" width="100%" height="400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+                                        </div>
+                                      </div>
+                                      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel_1" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                      </button>
+                                      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel_1" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                      </button>
+                                    </div>
+
+                                </div>
+                              </div>
+
         </div>
       </div>
     </div>
 
-    <div class="row mb-2">
-      <div class="col-md-6">
+    <div class="row mb-2" id="posts">
+      <div class="col-md-6" id="post_1">
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
           <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-primary">World</strong>
-            <h3 class="mb-0">Featured post</h3>
-            <div class="mb-1 text-muted">Nov 12</div>
-            <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+            <strong class="d-inline-block mb-2 text-success" d="post_1_category"></strong>
+            <h3 class="mb-0" id="post_1_title"></h3>
+            <div class="mb-1 text-muted" id="post_1_date"></div>
+            <p class="mb-auto" d="post_1_description"></p>
             <a href="#" class="stretched-link">Continue reading</a>
           </div>
           <div class="col-auto d-none d-lg-block">
+            <!--
             <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+-->
+            <img width="200" height="250" id="post_1_photo" src="" class="bd-placeholder-img center-cropped" focusable="false"></img>
 
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-          <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-success">Design</strong>
-            <h3 class="mb-0">Post title</h3>
-            <div class="mb-1 text-muted">Nov 11</div>
-            <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="stretched-link">Continue reading</a>
-          </div>
-          <div class="col-auto d-none d-lg-block">
-            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
 
+        <div class="col-md-6" id="post_2">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-success" d="post_2_category"></strong>
+              <h3 class="mb-0" id="post_2_title"></h3>
+              <div class="mb-1 text-muted" id="post_2_date"></div>
+              <p class="mb-auto" d="post_2_description"></p>
+              <a href="#" class="stretched-link">Continue reading</a>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+              <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+            </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </main>
@@ -242,42 +407,20 @@
   <footer class="py-5">
     <div class="row">
       <div class="col-2">
-        <h5>Section</h5>
+        <!--<h5>Section</h5>
         <ul class="nav flex-column">
           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
-
-      <div class="col-2">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
-
-      <div class="col-2">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
+        </ul>-->
       </div>
 
     </div>
 
     <div class="d-flex justify-content-between py-4 my-4 border-top">
-      <p>&copy; 2021 Company, Inc. All rights reserved.</p>
+      <p id="footer">&copy; </p>
       <ul class="list-unstyled d-flex">
         <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
         <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
@@ -291,7 +434,6 @@
 
 
     <script src="./bootstrap.bundle.min.js"></script>
-
 
   </body>
 </html>
